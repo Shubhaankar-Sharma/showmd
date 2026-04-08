@@ -75,7 +75,7 @@ export default function CodeDiff({ id }: { id: string }) {
   ).map((a) => ({
     lineNumber: a.line,
     side: (a.side === "deletions" ? "deletions" : "additions") as const,
-    data: a.content,
+    metadata: a.content,
   }));
 
   return (
