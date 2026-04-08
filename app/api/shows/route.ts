@@ -16,17 +16,25 @@ export async function POST(req: Request) {
   const id = nanoid(10);
   const now = new Date().toISOString();
 
-  await saveShow(
-    id,
-    {
-      title: body.title,
-      description: body.description,
-      createdAt: now,
-      updatedAt: now,
-    },
-    body.content,
-    body.diffs
-  );
+  try {
+    await saveShow(
+      id,
+      {
+        title: body.title,
+        description: body.description,
+        createdAt: now,
+        updatedAt: now,
+      },
+      body.content,
+      body.diffs
+    );
+  } catch (e) {
+    console.error("saveShow error:", e);
+    return NextResponse.json(
+      { error: "Failed to save show", details: String(e) },
+      { status: 500 }
+    );
+  }
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
