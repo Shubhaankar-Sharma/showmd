@@ -74,7 +74,7 @@ export default function CodeDiff({ id }: { id: string }) {
     diff.annotations || []
   ).map((a) => ({
     lineNumber: a.line,
-    side: (a.side === "deletions" ? "deletions" : "additions") as const,
+    side: a.side === "deletions" ? "deletions" as const : "additions" as const,
     metadata: a.content,
   }));
 
