@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { useShowId } from "./ShowContext";
 import { PatchDiff, type DiffLineAnnotation } from "@pierre/diffs/react";
 import { preloadHighlighter } from "@pierre/diffs";
@@ -74,7 +74,7 @@ export default function CodeDiff({ id }: { id: string }) {
     diff.annotations || []
   ).map((a) => ({
     lineNumber: a.line,
-    side: a.side === "deletions" ? ("old" as const) : ("new" as const),
+    side: (a.side === "deletions" ? "deletions" : "additions") as const,
     data: a.content,
   }));
 
